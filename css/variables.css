@@ -1,0 +1,88 @@
+:root {
+    /* Paleta Principal */
+    --primary: #085358;
+    --primary-dark: #042C2F;
+    --primary-light: #0d7b82;
+    /* Variante sugerida */
+    --accent: #E67E22;
+    /* Naranja Cobrizo */
+    --accent-glow: rgba(230, 126, 34, 0.3);
+
+    /* Neutros */
+    --bg-dark: #021a1c;
+    --text-light: #F1F5F9;
+    --text-muted: #94a3b8;
+
+    /* Containers (Tus medidas) */
+    --container-md: 720px;
+    --container-lg: 960px;
+    --container-xl: 1140px;
+    --container-xxl: 1320px;
+    --container-xxxl: 1520px;
+
+    /* Tipografía */
+    --font-main: 'Work Sans', sans-serif;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Lógica de Contenedores Asimétricos */
+.container-left, .container-right {
+    width: 100%;
+    /* clamp(mínimo, ideal fluido, máximo) */
+    padding-left: clamp(1rem, 5vw, 2rem);
+    padding-right: clamp(1rem, 5vw, 2rem);
+}
+
+/* 2. Regla de "Empuje" desde el centro (A partir de Tablet) */
+@media (min-width: 768px) {
+    .container-left {
+        /* Empuja el límite derecho hasta el centro de la pantalla (+ un margen de aire) */
+        padding-right: calc(50% + 3rem); 
+    }
+    
+    .container-right {
+        /* Empuja el límite izquierdo desde el centro de la pantalla (+ un margen de aire) */
+        padding-left: calc(50% + 3rem); 
+    }
+}
+
+/* 3. Ajuste del borde exterior con la grilla (Alineación con el Logo) */
+@media (min-width: 768px) {
+    .container-left { padding-left: calc(50% - (var(--container-md) / 2)); }
+    .container-right { padding-right: calc(50% - (var(--container-md) / 2)); }
+}
+
+@media (min-width: 992px) {
+    .container-left { padding-left: calc(50% - (var(--container-lg) / 2)); }
+    .container-right { padding-right: calc(50% - (var(--container-lg) / 2)); }
+}
+
+@media (min-width: 1200px) {
+    .container-left { padding-left: calc(50% - (var(--container-xl) / 2)); }
+    .container-right { padding-right: calc(50% - (var(--container-xl) / 2)); }
+}
+
+@media (min-width: 1400px) {
+    .container-left { padding-left: calc(50% - (var(--container-xxl) / 2)); }
+    .container-right { padding-right: calc(50% - (var(--container-xxl) / 2)); }
+}
+
+@media (min-width: 1600px) {
+    .container-left { padding-left: calc(50% - (var(--container-xxxl) / 2)); }
+    .container-right { padding-right: calc(50% - (var(--container-xxxl) / 2)); }
+}

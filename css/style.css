@@ -1,0 +1,872 @@
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow: hidden;
+    /* AGREGÁ ESTO: Se activará por JS en splash.js */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- NAVEGACIÓN PRINCIPAL --- */
+.nav-main {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(2, 26, 28, 0.8), transparent);
+    backdrop-filter: blur(5px);
+}
+
+.nav-main ul {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+}
+
+.nav-main a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+}
+
+.nav-main a:hover {
+    color: var(--accent);
+}
+
+/* --- SIDE DOT NAVIGATION --- */
+.side-dots {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    /* Cambiamos top:50% por bottom */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* Un poco más apretado */
+    z-index: 200;
+}
+
+.dot {
+    width: 8px;
+    /* Más chiquito como pediste */
+    height: 8px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.dot.active {
+    background-color: var(--accent);
+    transform: scale(1.3);
+    /* Un pequeño bump para el activo */
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.dot::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.dot:hover::after {
+    opacity: 1;
+}
+
+/* --- HERO SECTION --- */
+#hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.4) saturate(0.8);
+}
+
+#hero h1 {
+    /* Ajustamos de 12vw a 8vw y el máximo a 7rem */
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    white-space: nowrap;
+    /* ESTA ES LA MAGIA: Prohíbe que la palabra se rompa en dos renglones */
+}
+
+#hero p {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: var(--accent);
+    font-weight: 400;
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(75deg, var(--bg-dark) 0%, transparent 60%);
+    z-index: 0;
+    /* Por encima del video, debajo del h1 */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    /* Aseguramos que el texto esté arriba de la sombra */
+}
+
+/* --- SECCIONES GENÉRICAS --- */
+.section {
+    /* El espacio vertical también debe ser fluido */
+    padding-top: clamp(6rem, 15vh, 12rem);
+    padding-bottom: clamp(6rem, 15vh, 12rem);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.side-image {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Centra la foto verticalmente perfecta */
+    width: 38vw;
+    /* Ocupa un poco menos de la mitad de la pantalla */
+    height: 65vh;
+    /* Altura estética para que no toque los bordes arriba/abajo */
+    object-fit: cover;
+    /* Para que la foto no se deforme */
+    border-radius: 4px;
+    /* Un borde sutil para que no sea tan rústico */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    /* Sombra para despegarla del fondo */
+    z-index: -1;
+    /* Queda detrás del texto por las dudas */
+    filter: grayscale(30%) contrast(1.1);
+    /* Opcional: un toque estético para que no sea tan brillante */
+    transition: filter 0.5s ease;
+}
+
+.side-image:hover {
+    filter: grayscale(0%) contrast(1);
+}
+
+.container-right .side-image {
+    left: 5%;
+    /* Margen izquierdo de seguridad */
+}
+
+.container-left .side-image {
+    right: 5%;
+    /* Margen derecho de seguridad */
+}
+
+.hamburger-btn {
+    display: none;
+    /* Oculto en PC */
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    /* Para que quede por encima del menú desplegable */
+}
+
+/* Las 3 rayitas */
+.hamburger-btn span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: var(--text-light);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+@media (max-width: 991px) {
+    .side-image {
+        position: relative;
+        /* Deja de estar flotando */
+        top: 0;
+        transform: none;
+        width: 100%;
+        /* Ocupa todo el ancho disponible */
+        height: 300px;
+        left: 0 !important;
+        right: 0 !important;
+        margin-bottom: 3rem;
+        /* Espacio antes del título */
+        z-index: 1;
+    }
+}
+
+.carousel-container {
+    overflow: hidden;
+    background-color: var(--primary-dark);
+    /* Color de fondo por si tarda en cargar la foto */
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    /* Por defecto son invisibles */
+    transition: opacity 1.5s ease-in-out, transform 5s ease-out;
+    /* Transición súper suave y lento zoom */
+    transform: scale(1.05);
+    /* Empieza un poquito más grande */
+    z-index: 0;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 1;
+}
+
+h2 {
+    /* Mínimo 1.8rem (para 276px), ideal 8vw, máximo 3.5rem */
+    font-size: clamp(1.8rem, 8vw, 3.5rem);
+    font-weight: 900;
+    color: var(--primary);
+    margin-bottom: clamp(1.5rem, 5vw, 3rem);
+    text-transform: uppercase;
+    position: relative;
+    word-wrap: break-word;
+    /* Salva palabras largas como "Profesional" */
+    hyphens: auto;
+    /* Permite separar con guiones si la pantalla es enana */
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background-color: var(--accent);
+}
+
+.content-text p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin-bottom: 2rem;
+}
+
+/* Botón Acento */
+.btn-accent {
+    background-color: var(--accent);
+    padding: 0.8rem 2rem !important;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    transition: transform 0.3s, box-shadow 0.3s !important;
+}
+
+.btn-accent:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    color: white !important;
+}
+
+/* --- MOBILE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .nav-main {
+        padding: 1.5rem 2rem;
+    }
+
+    .hamburger-btn {
+        display: block;
+        /* Mostramos la hamburguesa */
+    }
+
+    /* Transformamos la lista en un panel lateral oculto a la derecha */
+    #nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        /* Arranca fuera de la pantalla */
+        width: 75%;
+        /* No ocupa todo el ancho, deja ver un poco el fondo */
+        height: 100vh;
+        background-color: rgba(4, 44, 47, 0.95);
+        /* Color oscuro semi-transparente */
+        backdrop-filter: blur(10px);
+        /* Desenfoque fino */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        transition: right 0.4s cubic-bezier(0.5, 0, 0, 1);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Clase que agregaremos con JS para que el menú entre */
+    #nav-links.nav-active {
+        right: 0;
+    }
+
+    /* Animación: La hamburguesa se transforma en una "X" */
+    .hamburger-btn.toggle span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+        background-color: var(--accent);
+        /* Se pinta de naranja */
+    }
+
+    .hamburger-btn.toggle span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-btn.toggle span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+        background-color: var(--accent);
+    }
+
+    /* Ajustes extra para mobile que ya tenías */
+    .side-dots {
+        display: flex;
+        right: 10px;
+        bottom: 15px;
+        gap: 10px;
+        transform: scale(0.8);
+        z-index: 99;
+    }
+
+    .dot::after {
+        display: none;
+    }
+}
+
+/* --- ANIMACIONES DE REVEAL --- */
+
+/* El elemento empieza invisible y un poco más abajo */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+/* Clase que aplicaremos por JS cuando el elemento entre en pantalla */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delay para que el párrafo aparezca un poquito después que el título */
+.reveal-delay {
+    transition-delay: 0.2s;
+}
+
+.artists-grid {
+    display: grid;
+    /* Agrandamos un poco el mínimo para que el texto entre bien al abrirse */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem 3rem;
+    margin-top: 2rem;
+    max-width: 900px;
+}
+
+.artist-item.accordion {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+    cursor: pointer;
+    /* Manito para indicar que es clickeable */
+    transition: border-color 0.3s;
+}
+
+.artist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    /* Nombre del artista fluido */
+    font-weight: 300;
+    color: var(--text-light);
+    transition: color 0.3s, transform 0.3s;
+}
+
+.artist-header h3 {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+}
+
+.icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: transform 0.4s cubic-bezier(0.5, 0, 0, 1);
+    color: var(--accent);
+}
+
+/* Efecto hover sobre todo el bloque */
+.artist-item.accordion:hover .artist-header {
+    color: var(--accent);
+    transform: translateX(10px);
+}
+
+/* --- EL CONTENIDO OCULTO --- */
+.artist-content {
+    max-height: 0;
+    /* Lo escondemos aplastándolo */
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease-out, opacity 0.4s ease-out, margin-top 0.4s ease-out;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.artist-content p {
+    word-wrap: break-word;
+    font-size: clamp(0.85rem, 3vw, 0.95rem);
+}
+
+/* --- ESTADO ACTIVO (CUANDO SE HACE CLIC) --- */
+.artist-item.accordion.active {
+    border-bottom-color: var(--accent);
+}
+
+.artist-item.accordion.active .artist-header {
+    color: var(--accent);
+    transform: translateX(10px);
+}
+
+.artist-item.accordion.active .icon {
+    transform: rotate(45deg);
+    /* El + se convierte en una X */
+}
+
+.artist-item.accordion.active .artist-content {
+    max-height: 200px;
+    /* Un valor alto para que el texto entre sin cortarse */
+    opacity: 1;
+    margin-top: 1rem;
+}
+
+/* --- SECCIÓN GRABACIONES (ESTILO SPOTIFY) --- */
+.recordings-grid {
+    display: grid;
+    /* Tarjetas de 180px mínimo, se adaptan solas */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 800px;
+    /* Para que no se estiren infinitamente en monitores gigantes */
+}
+
+/* Quitamos el estilo por defecto de los links */
+.record-card {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.record-card:hover {
+    transform: translateY(-5px);
+    /* Se levanta un poquito al pasar el mouse */
+}
+
+/* --- LA PORTADA DEL DISCO --- */
+.record-cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* Obliga a que sea un cuadrado perfecto siempre */
+    border-radius: 8px;
+    /* Bordes apenitas redondeados */
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.record-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* --- EL EFECTO DE PLAY AL HACER HOVER --- */
+.record-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(8, 83, 88, 0.7);
+    /* Usamos tu color Teal semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.play-icon {
+    font-size: 3rem;
+    color: var(--accent);
+    /* Naranja cobrizo */
+    transform: scale(0.5);
+    transition: transform 0.3s cubic-bezier(0.5, 0, 0, 1);
+}
+
+/* Cuando paso el mouse por la tarjeta entera, animo la foto y el overlay */
+.record-card:hover .record-overlay {
+    opacity: 1;
+}
+
+.record-card:hover .record-cover img {
+    transform: scale(1.1);
+    /* Zoom in de la foto */
+}
+
+.record-card:hover .play-icon {
+    transform: scale(1);
+    /* El ícono de play salta hacia adelante */
+}
+
+/* --- LA INFO DEL DISCO --- */
+.record-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 0.2rem;
+    transition: color 0.3s;
+}
+
+.record-info p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+/* El título se pinta de naranja al hacer hover */
+.record-card:hover .record-info h3 {
+    color: var(--accent);
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    /* Ocupa toda la pantalla (top, right, bottom, left: 0) */
+    background-color: rgba(2, 26, 28, 0.6);
+    /* Fondo semi-transparente oscuro */
+    backdrop-filter: blur(8px);
+    /* ¡La magia del desenfoque! */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9000;
+    /* Por encima de todo, pero debajo del splash (9999) */
+
+    /* Empieza oculto */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease-in-out;
+}
+
+.modal-content {
+    background-color: var(--primary-dark);
+    border: 1px solid rgba(230, 126, 34, 0.2);
+    /* Borde sutil naranja */
+    border-radius: 18px;
+    padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem);
+    max-width: 450px;
+    width: 95%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+    /* Empieza un poco más abajo para el efecto de entrada */
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.5s cubic-bezier(0.5, 0, 0, 1);
+}
+
+#modal-cta {
+    display: block;
+    /* Ocupa todo el ancho disponible */
+    width: 100%;
+    box-sizing: border-box;
+    font-size: clamp(0.85rem, 4vw, 1rem);
+    /* Letra fluida */
+    padding: 1rem 0.5rem !important;
+    /* Menos padding lateral */
+    white-space: normal;
+    /* Permite que el texto se acomode si es necesario */
+}
+
+/* CLASE ACTIVA (Controlada por JS) */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+/* --- ELEMENTOS DEL MODAL --- */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--accent);
+}
+
+.modal-badge {
+    background-color: rgba(230, 126, 34, 0.1);
+    color: var(--accent);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.modal-content h3 {
+    color: var(--text-light);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* --- FOOTER --- */
+.site-footer {
+    background-color: #18181b;
+    /* Un tono apenas diferente al bg-dark */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    /* Línea divisoria muy fina */
+    padding: 3rem 2rem;
+    z-index: 10;
+    position: relative;
+}
+
+.footer-content {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    /* En mobile se apilan */
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.footer-copy,
+.footer-credits {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+/* Estilo para tu firma como desarrollador */
+.dev-link {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.dev-link:hover {
+    color: var(--accent);
+    /* Se pinta de naranja al pasar el mouse */
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* En mobile se centra */
+    gap: 0.5rem;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.footer-socials a {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover premium (se pinta de naranja y sube apenitas) */
+.footer-socials a:hover {
+    color: var(--accent);
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+/* --- AJUSTE DESKTOP PARA LA COLUMNA --- */
+@media (min-width: 768px) {
+    .footer-brand {
+        align-items: flex-start; /* En PC se alinea a la izquierda */
+    }
+}
+
+/* --- DESKTOP: Alineación horizontal --- */
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        /* Se ponen uno al lado del otro */
+        justify-content: space-between;
+        /* Espacio igualitario entre los 3 */
+        text-align: left;
+    }
+}
+
+#contacto {
+    align-items: center; /* Centramos todo el contenido */
+    text-align: center;
+}
+
+.contact-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 5vw, 2rem);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: left; /* El texto adentro de los inputs va a la izquierda */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.03); /* Un gris hiper oscuro/transparente */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    color: var(--text-light);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* El efecto neón sutil cuando hacés clic para escribir */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.form-group textarea {
+    resize: vertical; /* Solo deja que lo estiren para abajo, no para los costados */
+}
+
+/* --- ÍCONOS DE LOS MODALES DE CONTACTO --- */
+.modal-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+}
+
+.success-icon {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #2ecc71; /* Verde éxito */
+    border: 2px solid #2ecc71;
+}
+
+.error-icon {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c; /* Rojo error */
+    border: 2px solid #e74c3c;
+}

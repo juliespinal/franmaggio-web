@@ -1,0 +1,67 @@
+#splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--primary-dark); /* El verde oscuro que definimos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1), 
+                visibility 0.8s;
+}
+
+.splash-container {
+    text-align: center;
+    width: 300px;
+}
+
+.signature-svg {
+    width: 100%;
+    fill: none;
+    stroke: var(--accent); /* El naranja cobrizo */
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+#signature-path {
+    /* El valor 1000 es un estimado, luego se ajusta con JS para exactitud */
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: write-sign 1.5s ease-in-out forwards;
+}
+
+.splash-text {
+    color: var(--text-light);
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    opacity: 0;
+    animation: fade-in-text 0.5s ease-out 1s forwards;
+}
+
+/* Animación de la escritura */
+@keyframes write-sign {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Aparece el nombre abajo */
+@keyframes fade-in-text {
+    to {
+        opacity: 0.6;
+    }
+}
+
+/* Clase para el fade-out final */
+.splash-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
