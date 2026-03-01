@@ -169,3 +169,34 @@ closeContactBtns.forEach(btn => {
         document.body.style.overflow = 'auto'; // Devolvemos el scroll
     });
 });
+
+// --- MODAL DE PAGOS (CURSOS) ---
+const paymentModal = document.getElementById('payment-modal');
+const openPaymentBtns = document.querySelectorAll('.open-payment-modal');
+const closePaymentBtns = document.querySelectorAll('.close-payment-modal');
+
+if (paymentModal) {
+    // Abrir modal
+    openPaymentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            paymentModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
+        });
+    });
+
+    // Cerrar modal con la X
+    closePaymentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            paymentModal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Devuelve el scroll
+        });
+    });
+
+    // Cerrar modal haciendo clic afuera de la cajita
+    paymentModal.addEventListener('click', (e) => {
+        if (e.target === paymentModal) {
+            paymentModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+}

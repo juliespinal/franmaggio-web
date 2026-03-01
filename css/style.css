@@ -3,7 +3,7 @@ body {
     color: var(--text-light);
     font-family: var(--font-main);
     line-height: 1.6;
-    overflow: hidden;
+    /*overflow: hidden;*/
     /* AGREGÁ ESTO: Se activará por JS en splash.js */
     -webkit-font-smoothing: antialiased;
 }
@@ -756,7 +756,8 @@ h2::after {
 .footer-brand {
     display: flex;
     flex-direction: column;
-    align-items: center; /* En mobile se centra */
+    align-items: center;
+    /* En mobile se centra */
     gap: 0.5rem;
 }
 
@@ -786,7 +787,8 @@ h2::after {
 /* --- AJUSTE DESKTOP PARA LA COLUMNA --- */
 @media (min-width: 768px) {
     .footer-brand {
-        align-items: flex-start; /* En PC se alinea a la izquierda */
+        align-items: flex-start;
+        /* En PC se alinea a la izquierda */
     }
 }
 
@@ -802,7 +804,8 @@ h2::after {
 }
 
 #contacto {
-    align-items: center; /* Centramos todo el contenido */
+    align-items: center;
+    /* Centramos todo el contenido */
     text-align: center;
 }
 
@@ -817,13 +820,15 @@ h2::after {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    text-align: left; /* El texto adentro de los inputs va a la izquierda */
+    text-align: left;
+    /* El texto adentro de los inputs va a la izquierda */
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.03); /* Un gris hiper oscuro/transparente */
+    background-color: rgba(255, 255, 255, 0.03);
+    /* Un gris hiper oscuro/transparente */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1rem 1.5rem;
@@ -844,7 +849,8 @@ h2::after {
 }
 
 .form-group textarea {
-    resize: vertical; /* Solo deja que lo estiren para abajo, no para los costados */
+    resize: vertical;
+    /* Solo deja que lo estiren para abajo, no para los costados */
 }
 
 /* --- ÍCONOS DE LOS MODALES DE CONTACTO --- */
@@ -861,12 +867,226 @@ h2::after {
 
 .success-icon {
     background-color: rgba(46, 204, 113, 0.1);
-    color: #2ecc71; /* Verde éxito */
+    color: #2ecc71;
+    /* Verde éxito */
     border: 2px solid #2ecc71;
 }
 
 .error-icon {
     background-color: rgba(231, 76, 60, 0.1);
-    color: #e74c3c; /* Rojo error */
+    color: #e74c3c;
+    /* Rojo error */
     border: 2px solid #e74c3c;
+}
+
+/* --- PÁGINA DE CURSOS --- */
+
+.page-section {
+    padding-top: 12vh; /* Espacio fijo y seguro para desktop */
+    padding-bottom: 5rem;
+    display: block; 
+    min-height: 100vh;
+}
+
+/* Ajuste específico para celulares */
+@media (max-width: 850px) {
+    .page-section {
+        padding-top: 14vh; /* Asegura que el título baje lo suficiente en mobile */
+    }
+}
+
+.container-center {
+    width: 100%;
+    max-width: 1000px; /* Hacemos el contenedor un poco más angosto para que la tarjeta no quede eterna */
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 5vw, 2rem);
+}
+
+.courses-grid {
+    display: flex;
+    flex-direction: column; /* Si agregás más cursos, se apilan uno abajo del otro */
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
+}
+
+.course-card {
+    display: flex;
+    flex-direction: row; /* Desktop: Imagen a la izquierda, texto a la derecha */
+    background-color: rgba(255, 255, 255, 0.03); 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px); 
+    border-color: rgba(230, 126, 34, 0.3); 
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.course-img {
+    width: 45%; /* La foto ocupa casi la mitad de la tarjeta */
+    min-height: 320px; /* Garantiza una buena altura para la foto */
+    object-fit: cover;
+    border-right: 1px solid rgba(255, 255, 255, 0.05); /* Línea divisoria sutil */
+}
+
+.course-info {
+    width: 55%; /* El texto ocupa el resto */
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.course-badge {
+    background-color: rgba(230, 126, 34, 0.1);
+    color: var(--accent);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.course-info h3 {
+    font-size: 1.8rem;
+    color: var(--text-light);
+    margin: 0 0 1rem 0;
+}
+
+.course-info p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem; /* Da aire para que el texto no se pegue al botón */
+}
+
+/* El botón clavado en la esquina inferior derecha */
+.course-info .btn-accent {
+    margin-top: auto; /* Magia Flexbox: Empuja el botón hasta el fondo disponible */
+    align-self: flex-end; /* Magia Flexbox: Lo tira hacia la derecha */
+}
+
+/* --- MOBILE RESPONSIVE (CELULARES Y TABLETS) --- */
+@media (max-width: 850px) {
+    .course-card {
+        flex-direction: column; /* Apila todo: Imagen arriba, texto abajo */
+    }
+
+    .course-img {
+        width: 100%; /* La foto ahora ocupa todo el ancho */
+        height: 250px; /* Altura fija para que no sea inmensa */
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .course-info {
+        width: 100%; /* El texto ocupa todo el ancho */
+        padding: 1.8rem;
+    }
+
+    .course-info h3 {
+        font-size: 1.5rem;
+    }
+
+    /* En celulares, el botón a la derecha es difícil de tocar, lo hacemos ancho completo */
+    .course-info .btn-accent {
+        width: 100%;
+        text-align: center;
+        align-self: center;
+    }
+}
+
+/* --- MODAL DE PAGOS --- */
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Botón Transferencia */
+.btn-transfer {
+    position: relative;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.2rem;
+    color: var(--text-light);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.btn-transfer:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+}
+
+.btn-transfer strong {
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.btn-transfer small {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Etiqueta 10% OFF */
+.discount-tag {
+    position: absolute;
+    top: -12px;
+    right: -10px;
+    background-color: #2ecc71; /* Verde éxito/dinero */
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 900;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.4);
+}
+
+/* Botón Mercado Pago (Colores Oficiales) */
+.btn-mercadopago {
+    width: 100%;
+    background-color: #009EE3; /* Azul oficial MP */
+    border: none;
+    border-radius: 8px;
+    
+    /* Padding ajustado para centrar solo la imagen */
+    padding: 1.2rem;
+    
+    /* Mantenemos Flexbox para centrar la imagen perfectamente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
+}
+
+.btn-mercadopago:hover {
+    background-color: #0088c4;
+    transform: translateY(-3px);
+}
+
+.mp-logo-only {
+    /* Agrandamos la imagen para que sea legible */
+    height: 32px; 
+    width: auto; /* Mantenemos proporción */
+    object-fit: contain; /* Evita deformaciones */
 }

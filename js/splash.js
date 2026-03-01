@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    document.body.style.overflow = 'hidden';
     const path = document.querySelector('#signature-path');
     const splash = document.querySelector('#splash');
     const modal = document.querySelector('#course-modal');
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (splash) {
                 splash.classList.add('splash-hidden');
             }
+            document.body.style.overflow = 'auto';
 
             // 2 segundos DESPUÉS de que se ocultó el splash, mostramos el modal
             setTimeout(() => {
