@@ -2,6 +2,7 @@
     /* Paleta Principal */
     --primary: #085358;
     --primary-dark: #042C2F;
+    /*--primary-dark: #ececec;*/
     --primary-light: #0d7b82;
     /* Variante sugerida */
     --accent: #E67E22;
@@ -9,7 +10,8 @@
     --accent-glow: rgba(230, 126, 34, 0.3);
 
     /* Neutros */
-    --bg-dark: #021a1c;
+    /*--bg-dark: #021a1c;*/
+    --bg-dark: #ebebeb;
     --text-light: #F1F5F9;
     --text-muted: #94a3b8;
 
