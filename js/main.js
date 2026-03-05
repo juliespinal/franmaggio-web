@@ -200,3 +200,90 @@ if (paymentModal) {
         }
     });
 }
+
+// --- SMOOTH SCROLLING PERSONALIZADO (Rápido a lento) ---
+document.querySelectorAll('.nav-main a[href^="#"], .side-dots a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        // Prevenimos el salto brusco por defecto
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (!targetElement) return;
+
+        // Calculamos la distancia. Restamos 80px (o lo que mida tu nav) para que el menú fijo no tape el título
+        const headerOffset = 80; 
+        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerOffset;
+        const startPosition = window.scrollY;
+        const distance = targetPosition - startPosition;
+        
+        // Duración de la animación en milisegundos (1.2 segundos es ideal para este efecto)
+        const duration = 1200; 
+        let start = null;
+
+        // La magia matemática: arranca a fondo y frena muuuuy suave al final
+        function easeOutQuart(t) {
+            return 1 - Math.pow(1 - t, 4);
+        }
+
+        function animation(currentTime) {
+            if (start === null) start = currentTime;
+            const timeElapsed = currentTime - start;
+            let progress = timeElapsed / duration;
+            
+            if (progress > 1) progress = 1;
+
+            const easeProgress = easeOutQuart(progress);
+            window.scrollTo(0, startPosition + distance * easeProgress);
+
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            }
+        }
+
+        // Si estás en mobile y tocaste un link, cerramos el menú desplegable automáticamente
+        const navLinks = document.getElementById('nav-links');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        if (navLinks && navLinks.classList.contains('nav-active')) {
+            navLinks.classList.remove('nav-active');
+            hamburgerBtn.classList.remove('toggle');
+        }
+
+        requestAnimationFrame(animation);
+    });
+});
+
+// --- NAVBAR COLOR INVERTER (Scrollspy) ---
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.nav-main');
+    if (!navbar) return;
+
+    // Las 3 secciones donde querés que cambie el color
+    const targetSections = ['bio', 'grabaciones', 'curso'];
+    let isOverTarget = false;
+
+    // Calculamos dónde está la mitad horizontal del navbar en la pantalla
+    const navRect = navbar.getBoundingClientRect();
+    const navCenterY = navRect.top + (navRect.height / 2);
+
+    // Revisamos una por una si el navbar la está pisando
+    targetSections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+            const rect = section.getBoundingClientRect();
+            // Si el centro del navbar está entre el borde superior y el inferior de la sección...
+            if (navCenterY >= rect.top && navCenterY <= rect.bottom) {
+                isOverTarget = true;
+            }
+        }
+    });
+
+    // Si está pisando alguna de las 3, le clavamos la clase invertida
+    if (isOverTarget) {
+        navbar.classList.add('nav-inverted');
+    } else {
+        navbar.classList.remove('nav-inverted');
+    }
+});

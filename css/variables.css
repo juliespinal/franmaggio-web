@@ -24,6 +24,7 @@
 
     /* Tipografía */
     --font-main: 'Work Sans', sans-serif;
+    --font-weight-bold: 600;
 }
 
 /* Reset básico */
@@ -40,6 +41,10 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+}
+
+strong {
+  font-weight: var(--font-weight-bold);
 }
 
 /* Lógica de Contenedores Asimétricos */

@@ -12,7 +12,7 @@ body {
     height: 50px;
     width: auto;
     display: block;
-    margin: 2vw;
+    margin: 0 auto;
 }
 
 /* --- NAVEGACIÓN PRINCIPAL --- */
@@ -328,6 +328,21 @@ h2::after {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     color: white !important;
+}
+
+.btn-accent2 {
+    background-color: var(--accent);
+    padding: 0.8rem 2rem !important;
+    border-radius: 12px;
+    font-weight: 600 !important;
+    transition: transform 0.3s, box-shadow 0.3s !important;
+}
+
+.btn-accent2:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    background-color: white !important;
+    color: var(--accent) !important;
 }
 
 /* --- MOBILE ADJUSTMENTS --- */
@@ -761,6 +776,31 @@ h2::after {
     font-weight: 300;
 }
 
+/* --- ESTILOS PARA LOS ÍCONOS DE REDES --- */
+.footer-socials a i {
+    font-size: 1.8rem; /* Tamaño de los íconos de Fran */
+    transition: all 0.3s ease;
+}
+
+.footer-credits {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Separación entre "Julio Espinal" y el ícono de GitHub */
+}
+
+.dev-github {
+    color: var(--text-muted);
+    font-size: 1.5rem; /* Ícono de GitHub un poquito más sutil */
+    display: flex;
+    transition: all 0.3s ease;
+}
+
+.dev-github:hover, .footer-socials a:hover i {
+    color: var(--accent); /* Se pintan de naranja al pasar el mouse */
+    transform: translateY(-3px); /* Saltan un poquito */
+}
+
 /* Estilo para tu firma como desarrollador */
 .dev-link {
     color: var(--text-light);
@@ -1119,4 +1159,31 @@ textarea::-webkit-input-placeholder {
     height: 32px; 
     width: auto; /* Mantenemos proporción */
     object-fit: contain; /* Evita deformaciones */
+}
+
+/* --- EFECTO SCROLLSPY (CAMBIO DE COLOR EN EL NAVBAR) --- */
+
+/* Nos aseguramos de que cualquier cambio en los links o el SVG sea suave */
+.nav-main a, 
+.nav-main svg,
+.nav-main svg path {
+    transition: color 0.4s ease-in-out, fill 0.4s ease-in-out !important;
+}
+
+/* La clase que le vamos a inyectar con JavaScript cuando pise las secciones */
+.nav-main.nav-inverted a {
+    color: var(--primary-dark) !important;
+    font-weight: 400;
+}
+
+/* El SVG pasa a blanco (atacamos tanto el fill como el color por las dudas) */
+.nav-main.nav-inverted svg,
+.nav-main.nav-inverted svg path {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+}
+
+/* Mantenemos el hover naranja para que no se pierda la interactividad */
+.nav-main.nav-inverted a:hover {
+    color: var(--bg-dark) !important; 
 }

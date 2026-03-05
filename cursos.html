@@ -15,18 +15,20 @@
 <body class="bg-dark text-light">
 
     <nav class="nav-main">
-        <a href="index.html" class="logo font-work" style="text-decoration: none;">FM</a>
-
+        <div class="logo">
+            <img src="/assets/img/fran_logo.svg" alt="Logo">
+        </div>
         <button id="hamburger-btn" class="hamburger-btn">
-            <span></span><span></span><span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
 
         <ul id="nav-links">
-            <li><a href="index.html#bio">Biografía</a></li>
-            <li><a href="index.html#artistas">Artistas</a></li>
-            <li><a href="index.html#grabaciones">Grabaciones</a></li>
-            <li><a href="index.html#contacto">Contacto</a></li>
-            <li><a href="cursos.html" class="btn-accent">Cursos</a></li>
+            <li><a href="/index.html#bio" style="font-weight: 400;">Biografía</a></li>
+            <li><a href="/index.html#artistas" style="font-weight: 400;">Artistas</a></li>
+            <li><a href="/index.html#grabaciones" style="font-weight: 400;">Grabaciones</a></li>
+            <li><a href="/index.html#contacto" style="font-weight: 400;">Contacto</a></li>
         </ul>
     </nav>
 
@@ -34,20 +36,20 @@
         <section class="page-section">
             <div class="container-center">
                 <h1 class="font-work"
-                    style="text-align: center; margin-bottom: 3rem; font-size: clamp(2.5rem, 6vw, 4rem);">Mis Cursos
+                    style="text-align: center; margin-top: 2rem; margin-bottom: 3rem; font-size: clamp(2.5rem, 6vw, 4rem); color:var(--primary-light)">Mis Cursos
                 </h1>
 
                 <div class="courses-grid">
 
                     <div class="course-card">
-                        <img src="assets/img/curso-cruceros.jpg" alt="Curso de Baterista en Cruceros"
+                        <img src="assets/img/fran-6.jpg" alt="Curso de Baterista en Cruceros"
                             class="course-img">
                         <div class="course-info">
                             <span class="course-badge">Novedad</span>
-                            <h3>Baterista de Cruceros</h3>
+                            <h3 style="color: var(--accent)">Baterista de Cruceros</h3>
                             <p>Descubrí el método exacto para conseguir tu primer contrato internacional, superar la
                                 audición y viajar por el mundo tocando.</p>
-                            <a href="https://cruceros.franmaggio.com.ar" class="btn-accent" target="_blank"
+                            <a href="/cursos/baterista-cruceros-internacional.html" class="btn-accent" target="_blank"
                                 style="text-align: center; margin-top: auto;">Ver Temario y Acceder</a>
                         </div>
                     </div>
@@ -56,14 +58,16 @@
             </div>
         </section>
     </main>
-    <footer class="site-footer">
-        <div class="footer-content reveal">
+        <footer class="site-footer">
+        <div class="footer-content">
             <div class="footer-brand">
                 <div class="footer-logo font-work">FranMaggio</div>
                 <div class="footer-socials">
-                    <a href="LINK_A_INSTAGRAM" target="_blank" aria-label="Instagram">IG</a>
-                    <a href="LINK_A_YOUTUBE" target="_blank" aria-label="YouTube">YT</a>
-                    <a href="LINK_A_SPOTIFY" target="_blank" aria-label="Spotify">SP</a>
+                    <a href="https://www.facebook.com/francisco.maggio.1998" target="_blank" aria-label="Facebook"><i
+                            class='bx bxl-facebook-circle'></i></a>
+                    <a href="https://www.instagram.com/fmadrum/" target="_blank" aria-label="Instagram"><i
+                            class='bx bxl-instagram'></i></a>
+                    <a href="https://www.youtube.com/@franciscomaggio6990" target="_blank" aria-label="Youtube"><i class='bx bxl-youtube'></i></a>
                 </div>
             </div>
 
@@ -72,7 +76,12 @@
             </div>
 
             <div class="footer-credits">
-                Desarrollado por <a href="https://api.whatsapp.com/send?phone=542234257146&text=%C2%A1Hola%2C%20Juli!%20Tengo%20inter%C3%A9s%20en%20tus%20servicios%20de%20desarrollador.%20%C2%BFPodr%C3%A9%20comentarte%20mi%20proyecto%3F" target="_blank" class="dev-link">Julio Espinal</a>
+                Desarrollado por
+                <a href="https://api.whatsapp.com/send?phone=542234257146&text=%C2%A1Hola%2C%20Juli!%20Tengo%20inter%C3%A9s%20en%20tus%20servicios%20de%20desarrollador.%20%C2%BFPodr%C3%A9%20comentarte%20mi%20proyecto%3F"
+                    target="_blank" class="dev-link">Julio Espinal</a>
+                <a href="https://github.com/juliespinal" target="_blank" aria-label="GitHub de Julio Espinal" class="dev-github">
+                    <i class='bx bxl-github'></i>
+                </a>
             </div>
         </div>
     </footer>
